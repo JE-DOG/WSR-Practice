@@ -34,7 +34,7 @@ class AnalyzesViewModel(
         fullPriceLiveData.value = 0
     }
 
-
+    //fdsafsafdsdfdsaf
 
     fun getAnalyzesCategory(){
         viewModelScope.launch {
