@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/bn_analazy"
+        android:title="Анализы"
+        android:icon="@drawable/ic_bn_analyze"/>
+    <item android:id="@+id/bn_result"
+        android:title="Результаты"
+        android:icon="@drawable/ic_bn_result"/>
+    <item android:id="@+id/bn_support"
+        android:title="Поддержка"
+        android:icon="@drawable/ic_bn_support"/>
+    <item android:id="@+id/bn_user"
+        android:title="Профиль"
+        android:icon="@drawable/ic_bn_user"/>
+</menu>

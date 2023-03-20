@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:id="@+id/input_name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingStart="14dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:background="@drawable/edit_text_style"
+        android:hint="Имя"
+        android:textColorHint="#939396"
+        tools:ignore="RtlSymmetry"
+        android:layout_marginBottom="24dp"/>
+
+<EditText
+        android:id="@+id/input_otchevstvo"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:paddingStart="14dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:background="@drawable/edit_text_style"
+        android:hint="Отчество"
+        tools:ignore="RtlSymmetry"
+        android:layout_marginBottom="24dp"
+    android:textColorHint="#939396"/>
+
+<EditText
+        android:id="@+id/input_surname"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:paddingStart="14dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:background="@drawable/edit_text_style"
+        android:hint="Фамилия"
+        tools:ignore="RtlSymmetry"
+        android:layout_marginBottom="24dp"
+    android:textColorHint="#939396"/>
+
+<EditText
+        android:id="@+id/input_date_born"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:paddingStart="14dp"
+        android:ems="10"
+        android:inputType="date"
+        android:background="@drawable/edit_text_style"
+        android:hint="Дата рождения"
+        tools:ignore="RtlSymmetry"
+        android:layout_marginBottom="24dp"
+        android:textColorHint="#939396"
+        />
+
+    <AutoCompleteTextView
+        android:id="@+id/set_gender_et"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/edit_text_style"
+        android:drawableEnd="@drawable/ic_dropdown"
+        android:paddingEnd="19dp"
+        android:paddingStart="14dp"
+        android:inputType="none"
+        android:textColorHint="#939396"
+        android:hint="Пол"/>
+
+
+</LinearLayout>

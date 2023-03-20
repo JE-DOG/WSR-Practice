@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="gender">
+        <item>Не стандартный(Женский)</item>
+        <item>Стандартный(Мужской)</item>
+        <item>Джамал</item>
+        <item>Путин</item>
+        <item>Gigachad</item>
+        <item>Sigma</item>
+        <item>Хакуна матата</item>
+        <item>Животное</item>
+    </array>
+</resources>
