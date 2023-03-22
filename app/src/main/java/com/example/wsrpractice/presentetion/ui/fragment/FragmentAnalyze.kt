@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnScrollChangeListener
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -36,6 +35,7 @@ import kotlinx.coroutines.launch
 class FragmentAnalyze:  Fragment() {
 
     lateinit var binding:FragmentAnalezyBinding
+    private val router = App.INSTANCE.router
     private val viewModel: AnalyzesViewModel by viewModels({requireActivity()}){
         AnalyzesViewModelFactory()
     }
@@ -59,8 +59,20 @@ class FragmentAnalyze:  Fragment() {
         initAnalyzeRcv()
         initSearchEditText()
         initRefresh()
+        initButtons()
 
     }
+
+    private fun initButtons(){
+        val toBasketBut = binding.basketBut
+        toBasketBut.setOnClickListener {
+            router.navigateTo(Screens.toBasket())
+        }
+
+
+    }
+
+
 
     private fun initRefresh(){
         val refresh = binding.refresh
@@ -210,7 +222,7 @@ class FragmentAnalyze:  Fragment() {
     private fun createBottomSheetDialogAnalyzeDetail(analyze:ResponseServerCatalog){
         val listener:FragmentBottomSheetDialogDetailAnalyzeListener = {
             //todo add analyze to basket
-            viewModel.addPrice(it.price)
+            viewModel.addAnalyze(it)
 
 
             true
@@ -252,7 +264,7 @@ class FragmentAnalyze:  Fragment() {
         val adapter = RcvAnalyzesAdapter(object : RcvAnalyzesListener {
             @SuppressLint("SetTextI18n")
             override fun buttonAddClick(analyze: ResponseServerCatalog,isSelected:Boolean) {
-                viewModel.addPrice(analyze.price)
+                viewModel.addAnalyze(analyze)
                 //todo add analyze to basket
             }
 
@@ -301,19 +313,21 @@ class FragmentAnalyze:  Fragment() {
             adapter.analyzes = analyzesCategory
         }
 
-        viewModel._fullPriceLiveData.observe(viewLifecycleOwner){
-            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT).show()
-            binding.priceTv.text = "$it ₽"
+        viewModel._selectedAnalyzeLiveData.observe(viewLifecycleOwner){analyze ->
+            var price = 0
+            analyze.forEach {
+                price += it.price.toInt()
+            }
+            Toast.makeText(requireContext(), price.toString(), Toast.LENGTH_SHORT).show()
+            binding.priceTv.text = "$price ₽"
 
-            if(it > 0){
+            if(price > 0){
                 binding.basketLayout.visibility = View.VISIBLE
             }else{
                 binding.basketLayout.visibility = View.GONE
             }
-        }
 
-        binding.promotionAndNewsTv.setOnClickListener {
-            viewModel.removePrice()
+
         }
     }
 

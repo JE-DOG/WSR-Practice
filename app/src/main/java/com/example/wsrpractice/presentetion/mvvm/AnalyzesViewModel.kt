@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wsrpractice.data.network.model.ResponseServerCatalog
 import com.example.wsrpractice.domain.use_case.user.catalog.GetAnalyzesCatalogUseCase
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class AnalyzesViewModel(
@@ -19,22 +18,19 @@ class AnalyzesViewModel(
     private val categoryLiveData = MutableLiveData<String>()
     val category = categoryLiveData
 
-    private val fullPriceLiveData = MutableLiveData(0)
-    val _fullPriceLiveData = fullPriceLiveData
+    private val selectedAnalyzeLiveData = MutableLiveData<MutableList<ResponseServerCatalog>>()
+    val _selectedAnalyzeLiveData = selectedAnalyzeLiveData
 
 
 
-    fun addPrice(textPrice:String){
-        Log.d("priceTest",textPrice)
-        val price = textPrice.toInt()
-        fullPriceLiveData.value = fullPriceLiveData.value!!.plus(price)
+    fun addAnalyze(analyze: ResponseServerCatalog){
+        Log.d("priceTest", analyze.toString())
+        selectedAnalyzeLiveData.value?.add(analyze)
     }
 
-    fun removePrice(){
-        fullPriceLiveData.value = 0
+    fun removeAnalyze(analyze:ResponseServerCatalog){
+        selectedAnalyzeLiveData.value?.remove(analyze)
     }
-
-    //fdsafsafdsdfdsaf
 
     fun getAnalyzesCategory(){
         viewModelScope.launch {

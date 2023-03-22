@@ -3,6 +3,9 @@ package com.example.wsrpractice
 import android.app.Application
 import android.util.Log
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.example.wsrpractice.data.storage.analyze_db.StorageDataBase
 import com.example.wsrpractice.data.storage.user.UserStorageImp
 import com.example.wsrpractice.domain.use_case.user.token.GetUserTokenUseCase
 import com.example.wsrpractice.domain.use_case.user.token.SaveUserTokenUseCase
@@ -14,6 +17,10 @@ class App: Application() {
     private val cicerone = Cicerone.create()
     val router = cicerone.router
     val navigatorHolder get() = cicerone.getNavigatorHolder()
+//    val roomDataBase = Room.databaseBuilder(
+//        applicationContext,
+//        StorageDataBase
+//    )
 
     private val userStorage by lazy {
         UserStorageImp(this)

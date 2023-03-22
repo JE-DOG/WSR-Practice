@@ -15,4 +15,6 @@ object Screens {
     fun analyze() = FragmentScreen{ FragmentAnalyze() }
     fun profile() = FragmentScreen{ FragmentProfile() }
 
+    fun toBasket() = FragmentScreen { FragmentBasket() }
+
 }
