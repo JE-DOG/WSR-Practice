@@ -11,8 +11,8 @@ interface AnalyzeDao {
     suspend fun addAnalyze(analyzeEntity: AnalyzeEntity)
 
     @Query("UPDATE analyze_table " +
-            "SET patients := patients" +
-            "WHERE name :=name")
+            "SET patients = :patients " +
+            "WHERE name = :name")
     suspend fun setPatients(name:String, patients:Int)
 
     @Delete(AnalyzeEntity::class)

@@ -2,25 +2,30 @@ package com.example.wsrpractice.presentetion.ui.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnScrollChangeListener
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
+import com.example.wsrpractice.App
 import com.example.wsrpractice.R
 import com.example.wsrpractice.data.network.model.ResponseServerCatalog
 import com.example.wsrpractice.databinding.FragmentAnalezyBinding
 import com.example.wsrpractice.presentetion.mvvm.AnalyzesViewModel
 import com.example.wsrpractice.presentetion.mvvm.factory.AnalyzesViewModelFactory
+import com.example.wsrpractice.presentetion.screens.Screens
 import com.example.wsrpractice.presentetion.ui.adapters.recyclerView.RcvAnalyzesAdapter
 import com.example.wsrpractice.presentetion.ui.adapters.recyclerView.RcvAnalyzesListener
 import com.example.wsrpractice.presentetion.ui.adapters.recyclerView.RcvNewsAdapter
@@ -46,14 +51,57 @@ class FragmentAnalyze:  Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initChipGroupAnalysisCategory()
         initNewsRcv()
         initAnalyzeRcv()
         initSearchEditText()
-
+        initRefresh()
 
     }
+
+    private fun initRefresh(){
+        val refresh = binding.refresh
+        refresh.setOnRefreshListener {
+            viewModel.getAnalyzesCategory()
+            refresh.isRefreshing = false
+        }
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+//        biometricRegistrate()
+    }
+
+//    private fun biometricRegistrate(){
+//        val executor = ContextCompat.getMainExecutor(requireActivity())
+//
+//        val biometricPrompt = androidx.biometric.BiometricPrompt(
+//            this,
+//            executor,
+//            object : androidx.biometric.BiometricPrompt.AuthenticationCallback(){
+//
+//                override fun onAuthenticationSucceeded(result: androidx.biometric.BiometricPrompt.AuthenticationResult) {
+//                    super.onAuthenticationSucceeded(result)
+//                    val router = App.INSTANCE.router
+//                    router.navigateTo(Screens.profile())
+//                }
+//
+//            }
+//        )
+//
+//        val promptInfo = androidx.biometric.BiometricPrompt.PromptInfo.Builder()
+//            .setDescription("Dokazhi chto ti chelovek")
+//            .setSubtitle("kaka")
+//            .setTitle("registrate")
+//            .setNegativeButtonText("ebat ti lox")
+//            .build()
+//
+//        biometricPrompt.authenticate(promptInfo)
+//    }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initSearchEditText(){
@@ -182,6 +230,19 @@ class FragmentAnalyze:  Fragment() {
         val rcv = binding.rcvNews
 
         rcv.adapter = adapter
+
+        rcv.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                binding.refresh.isEnabled = false
+            }
+
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                binding.refresh.isEnabled = true
+            }
+        })
     }
 
     @SuppressLint("SetTextI18n")
@@ -201,19 +262,42 @@ class FragmentAnalyze:  Fragment() {
             }
 
         })
-        val analyzesCategory = mutableListOf<ResponseServerCatalog>()
+        var analyzesCategory = mutableListOf<ResponseServerCatalog>()
         rcv.adapter = adapter
 
+        rcv.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val topVerticalPosition =
+                    if (recyclerView == null || recyclerView.childCount == 0 ){
+                        0
+                    }else{
+                        recyclerView.getChildAt(0).top
+                    }
+
+                binding.refresh.isEnabled = topVerticalPosition >= 0
+            }
+
+        })
+
         viewModel.category.observe(viewLifecycleOwner) { category ->
+
+            binding.promotionAndNewsTv.text = category
+
             lifecycleScope.launch {
+                analyzesCategory = mutableListOf()
                 analyzesList.value?.map {
-                    Log.d("RcvTest","${it.category} \n $category")
+//                    Log.d("RcvTest","${it.category} \n $category")
                     if (it.category == category) {
+                        Log.d("ChipRcvTest", "added to list for analyze list:\n$it")
                         analyzesCategory.add(it)
                     }
                 }
             }
-            Log.d("RcvTest", analyzesCategory.toString())
+            Log.d("ChipRcvTest", "refresh man cool")
+            Log.d("ChipRcvTest","${analyzesCategory[0].category}\n${category}\n$analyzesCategory")
+
             adapter.analyzes = analyzesCategory
         }
 
@@ -230,9 +314,6 @@ class FragmentAnalyze:  Fragment() {
 
         binding.promotionAndNewsTv.setOnClickListener {
             viewModel.removePrice()
-        }
-
-        analyzesList.observe(viewLifecycleOwner){
         }
     }
 
@@ -262,6 +343,7 @@ class FragmentAnalyze:  Fragment() {
 
         viewModel.analyzes.observe(viewLifecycleOwner) { catalogs ->
             val responseServer = catalogs.map { it.category }.toSet().toList()
+            chipGroup.removeAllViews()
 
             responseServer.forEach {
 
@@ -269,6 +351,9 @@ class FragmentAnalyze:  Fragment() {
                     chipGroup.addView(Chip(requireContext()).apply {
                         this.id = idPopularCategory
                         this.text = it
+                        chipMinHeight = 140f
+                        chipEndPadding = 25f
+                        chipStartPadding = 25f
                         this.setTextColor(resources.getColorStateList(R.color.white))
                         this.chipBackgroundColor = resources.getColorStateList(R.color.chip_enable_true)
                     })
@@ -278,6 +363,7 @@ class FragmentAnalyze:  Fragment() {
                     chipGroup.addView(Chip(requireContext()).apply {
                         this.id = View.generateViewId()
                         this.text = it
+                        chipMinHeight = 140f
                     })
 
             }
@@ -290,6 +376,15 @@ class FragmentAnalyze:  Fragment() {
 
 
         }
+
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initMotionLayout(){
+        val scroll = binding.contentMotionLayout
+
+
+
 
     }
 

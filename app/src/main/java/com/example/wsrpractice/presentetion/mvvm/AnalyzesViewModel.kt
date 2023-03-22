@@ -40,7 +40,7 @@ class AnalyzesViewModel(
         viewModelScope.launch {
             val response = getAnalyzesCatalogUseCase.execute()
             Log.d("serverTestCatalog",response.toString())
-            analyzesLiveData.value = response
+            analyzesLiveData.postValue(response)
         }
     }
 
