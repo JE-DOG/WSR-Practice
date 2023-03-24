@@ -12,24 +12,32 @@ class AnalyzesViewModel(
     private val getAnalyzesCatalogUseCase: GetAnalyzesCatalogUseCase
 ):ViewModel() {
 
+    init {
+
+    }
     private val analyzesLiveData= MutableLiveData<List<ResponseServerCatalog>>()
     val analyzes = analyzesLiveData
 
     private val categoryLiveData = MutableLiveData<String>()
     val category = categoryLiveData
 
-    private val selectedAnalyzeLiveData = MutableLiveData<MutableList<ResponseServerCatalog>>()
+    private val selectedAnalyzeLiveData = MutableLiveData<MutableList<ResponseServerCatalog>>(
+        mutableListOf()
+    )
     val _selectedAnalyzeLiveData = selectedAnalyzeLiveData
 
 
 
     fun addAnalyze(analyze: ResponseServerCatalog){
         Log.d("priceTest", analyze.toString())
-        selectedAnalyzeLiveData.value?.add(analyze)
+        selectedAnalyzeLiveData.value!!.add(analyze)
+        Log.d("listTest", selectedAnalyzeLiveData.toString())
+        selectedAnalyzeLiveData.value = selectedAnalyzeLiveData.value
     }
 
     fun removeAnalyze(analyze:ResponseServerCatalog){
-        selectedAnalyzeLiveData.value?.remove(analyze)
+        selectedAnalyzeLiveData.value!!.remove(analyze)
+        selectedAnalyzeLiveData.value =  selectedAnalyzeLiveData.value
     }
 
     fun getAnalyzesCategory(){
@@ -43,5 +51,12 @@ class AnalyzesViewModel(
     fun setCategory(category: String){
         categoryLiveData.value = category
     }
+
+}
+
+fun main(){
+
+    val mutableLiveData = mutableListOf<Int>()
+    println(mutableLiveData)
 
 }

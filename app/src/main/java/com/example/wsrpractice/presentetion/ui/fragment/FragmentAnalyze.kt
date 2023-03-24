@@ -33,7 +33,7 @@ import com.google.android.material.chip.Chip
 import kotlinx.coroutines.launch
 
 class FragmentAnalyze:  Fragment() {
-
+    lateinit var adapter: RcvAnalyzesAdapter
     lateinit var binding:FragmentAnalezyBinding
     private val router = App.INSTANCE.router
     private val viewModel: AnalyzesViewModel by viewModels({requireActivity()}){
@@ -221,11 +221,14 @@ class FragmentAnalyze:  Fragment() {
 
     private fun createBottomSheetDialogAnalyzeDetail(analyze:ResponseServerCatalog){
         val listener:FragmentBottomSheetDialogDetailAnalyzeListener = {
+            analyze.isSelected = !analyze.isSelected
             //todo add analyze to basket
-            viewModel.addAnalyze(it)
-
-
-            true
+            if (analyze.isSelected){
+                viewModel.addAnalyze(it)
+            }else{
+                viewModel.removeAnalyze(it)
+            }
+            adapter.changeItem(it)
         }
         val bottomSheet = FragmentBottomSheetDialogDetailAnalyze(analyze)
         bottomSheet.addListener(listener)
@@ -261,16 +264,21 @@ class FragmentAnalyze:  Fragment() {
     private fun initAnalyzeRcv(){
         val rcv = binding.rcvAnalazy
         val analyzesList = viewModel.analyzes
-        val adapter = RcvAnalyzesAdapter(object : RcvAnalyzesListener {
-            @SuppressLint("SetTextI18n")
-            override fun buttonAddClick(analyze: ResponseServerCatalog,isSelected:Boolean) {
-                viewModel.addAnalyze(analyze)
-                //todo add analyze to basket
+        adapter = RcvAnalyzesAdapter(object : RcvAnalyzesListener {
+            override fun buttonAddClick(analyze: ResponseServerCatalog) {
+
+                analyze.isSelected = !analyze.isSelected
+                if(analyze.isSelected) {
+                    viewModel.addAnalyze(analyze)
+                }else{
+                    viewModel.removeAnalyze(analyze)
+                }
+                adapter.changeItem(analyze)
             }
 
             override fun onItemClick(analyze: ResponseServerCatalog) {
+                adapter.changeItem(analyze)
                 createBottomSheetDialogAnalyzeDetail(analyze = analyze)
-
             }
 
         })
@@ -314,8 +322,9 @@ class FragmentAnalyze:  Fragment() {
         }
 
         viewModel._selectedAnalyzeLiveData.observe(viewLifecycleOwner){analyze ->
+
             var price = 0
-            analyze.forEach {
+            analyze?.forEach {
                 price += it.price.toInt()
             }
             Toast.makeText(requireContext(), price.toString(), Toast.LENGTH_SHORT).show()
@@ -326,8 +335,6 @@ class FragmentAnalyze:  Fragment() {
             }else{
                 binding.basketLayout.visibility = View.GONE
             }
-
-
         }
     }
 
@@ -396,10 +403,6 @@ class FragmentAnalyze:  Fragment() {
     @SuppressLint("ClickableViewAccessibility")
     private fun initMotionLayout(){
         val scroll = binding.contentMotionLayout
-
-
-
-
     }
 
 }

@@ -15,7 +15,7 @@ import com.example.wsrpractice.presentetion.ui.adapters.recyclerView.RcvAnalyzes
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-typealias FragmentBottomSheetDialogDetailAnalyzeListener = (analyze:ResponseServerCatalog) -> Boolean
+typealias FragmentBottomSheetDialogDetailAnalyzeListener = (analyze:ResponseServerCatalog) -> Unit
 
 class FragmentBottomSheetDialogDetailAnalyze(private val analyze:ResponseServerCatalog): BottomSheetDialogFragment() {
 
