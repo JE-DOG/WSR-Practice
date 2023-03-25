@@ -2,7 +2,6 @@ package com.example.wsrpractice.data.storage.dao
 
 import androidx.room.*
 import com.example.wsrpractice.data.storage.model.AnalyzeEntity
-import com.google.android.material.circularreveal.CircularRevealHelper.Strategy
 
 @Dao
 interface AnalyzeDao {
@@ -17,5 +16,9 @@ interface AnalyzeDao {
 
     @Delete(AnalyzeEntity::class)
     suspend fun removeAnalyze(analyzeEntity: AnalyzeEntity)
+
+    @Query("SELECT * " +
+            "FROM analyze_table")
+    suspend fun getAnalyzes(): List<AnalyzeEntity>
 
 }

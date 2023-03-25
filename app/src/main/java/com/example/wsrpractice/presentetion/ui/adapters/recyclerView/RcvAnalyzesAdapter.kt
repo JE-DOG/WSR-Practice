@@ -60,11 +60,7 @@ class RcvAnalyzesAdapter(private val listener:RcvAnalyzesListener):RecyclerView.
             }
             this.root.setOnClickListener {
                 listener.onItemClick(analezy)
-
             }
-
-
-
         }
 
         private fun changeAddBut(){

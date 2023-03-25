@@ -1,4 +1,4 @@
-package com.example.wsrpractice.data.storage.user_password
+package com.example.wsrpractice.data.storage.impl.user_password
 
 interface UserStoragePassword{
 

@@ -1,9 +1,6 @@
 package com.example.wsrpractice.data.network.model
 
-import com.google.gson.annotations.Expose
-import com.google.gson.annotations.SerializedName
-
-data class UserPatientCard(
+data class UserPatientCardNetwork(
     val id:Int? = null,
     val firstname:String,
     val middlename:String,

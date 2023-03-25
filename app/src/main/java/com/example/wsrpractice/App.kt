@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.wsrpractice.data.storage.analyze_db.StorageDataBase
-import com.example.wsrpractice.data.storage.user.UserStorageImp
+import com.example.wsrpractice.data.storage.impl.user.UserStorageImp
 import com.example.wsrpractice.domain.use_case.user.token.GetUserTokenUseCase
 import com.example.wsrpractice.domain.use_case.user.token.SaveUserTokenUseCase
 import com.github.terrakok.cicerone.Cicerone
@@ -17,10 +17,12 @@ class App: Application() {
     private val cicerone = Cicerone.create()
     val router = cicerone.router
     val navigatorHolder get() = cicerone.getNavigatorHolder()
-//    val roomDataBase = Room.databaseBuilder(
-//        applicationContext,
-//        StorageDataBase
-//    )
+
+    val roomDataBase = Room.databaseBuilder(
+        applicationContext,
+        StorageDataBase::class.java,
+        "Storage"
+    ).build()
 
     private val userStorage by lazy {
         UserStorageImp(this)
@@ -37,6 +39,8 @@ class App: Application() {
         super.onCreate()
         INSTANCE = this
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+
 
         token = getTokenUseCase.execute()
         Log.d("UserToken", token)

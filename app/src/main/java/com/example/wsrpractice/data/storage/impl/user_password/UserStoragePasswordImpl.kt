@@ -1,8 +1,8 @@
-package com.example.wsrpractice.data.storage.user_password
+package com.example.wsrpractice.data.storage.impl.user_password
 
 import android.content.Context
 
-class UserStoragePasswordImpl(context: Context):UserStoragePassword {
+class UserStoragePasswordImpl(context: Context): UserStoragePassword {
     private val sharedPreferences = context.getSharedPreferences(
         PASSWORD_SHARED_PREF_NAME,
         Context.MODE_PRIVATE

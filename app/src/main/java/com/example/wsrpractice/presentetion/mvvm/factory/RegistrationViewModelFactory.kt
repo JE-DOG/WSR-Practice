@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.wsrpractice.data.network.impl.user.UserNetworkImplementation
 import com.example.wsrpractice.data.repository.UserRepositoryImplementation
-import com.example.wsrpractice.data.storage.user_password.UserStoragePasswordImpl
+import com.example.wsrpractice.data.storage.impl.user_password.UserStoragePasswordImpl
 import com.example.wsrpractice.domain.use_case.user.password.SaveUserPasswordUseCase
 import com.example.wsrpractice.domain.use_case.user.sign_in.SendCodeUseCase
 import com.example.wsrpractice.domain.use_case.user.sign_in.SignInUseCase

@@ -1,6 +1,6 @@
 package com.example.wsrpractice.domain.use_case.user.token
 
-import com.example.wsrpractice.data.storage.user.UserStorage
+import com.example.wsrpractice.data.storage.impl.user.UserStorage
 
 class SaveUserTokenUseCase(private val userStorage: UserStorage) {
 

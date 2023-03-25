@@ -1,20 +1,20 @@
-package com.example.wsrpractice.data.network.model
+package com.example.wsrpractice.presentetion.model
 
 import com.example.wsrpractice.domain.model.PatientCardDomain
 
-data class ResponseCreatePatientCard(
-    val bith: String,
-    val firstname: String,
-    val id: Int,
-    val image: String,
-    val lastname: String,
-    val middlename: String,
-    val pol: String
+data class PatientCard(
+    val firstname:String,
+    val middlename:String,
+    val lastname:String,
+    val bith:String,
+    val pol:String,
+    val image:String? = null
 ){
-    fun toDomain(): PatientCardDomain {
+
+    fun toDomain(): PatientCardDomain{
         return this.run {
             PatientCardDomain(
-                id = id,
+                id = null,
                 firstname = firstname,
                 middlename = middlename,
                 lastname = lastname,
@@ -23,4 +23,5 @@ data class ResponseCreatePatientCard(
             )
         }
     }
+
 }

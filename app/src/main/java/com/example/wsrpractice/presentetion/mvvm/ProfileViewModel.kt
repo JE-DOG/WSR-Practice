@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.wsrpractice.data.network.model.UserPatientCard
+import com.example.wsrpractice.data.network.model.UserPatientCardNetwork
 import com.example.wsrpractice.domain.use_case.user.patient_card.CreatePatientCardUseCase
 import com.example.wsrpractice.domain.use_case.user.patient_card.SetAvatarUseCase
 import com.example.wsrpractice.domain.use_case.user.patient_card.UpdatePatientCardUseCase
@@ -16,7 +16,7 @@ class ProfileViewModel(
     private val avatarUseCase: SetAvatarUseCase
 ):ViewModel() {
 
-    private val liveDataPatientCard = MutableLiveData<UserPatientCard?>()
+    private val liveDataPatientCard = MutableLiveData<UserPatientCardNetwork?>()
     val _liveDataPatientCard = liveDataPatientCard
     private val liveDataServerAnswer = MutableLiveData<Boolean>()
     val _liveDataServerAnswer = liveDataServerAnswer
@@ -28,7 +28,7 @@ class ProfileViewModel(
     }
 
     suspend fun getPatientCard(){
-        val patientCard = UserPatientCard(
+        val patientCard = UserPatientCardNetwork(
             69696969,
             "Gigachad",
             "Gigachadov",
@@ -40,13 +40,13 @@ class ProfileViewModel(
         liveDataPatientCard.postValue(patientCard)
     }
 
-    suspend fun savePatientCard(patientCard: UserPatientCard,newUser:Boolean){
+    suspend fun savePatientCard(patientCard: UserPatientCardNetwork, newUser:Boolean){
         if (newUser) {
             val response = createPatientCardUseCase.execute(patientCard)
             Log.d("ServerPatientTest", response.toString())
 
         }else {
-            val response = updatePatientCardUseCase.execute(userPatientCard = patientCard)
+            val response = updatePatientCardUseCase.execute(userPatientCardNetwork = patientCard)
             Log.d("ServerPatientTest", response.toString())
         }
     }

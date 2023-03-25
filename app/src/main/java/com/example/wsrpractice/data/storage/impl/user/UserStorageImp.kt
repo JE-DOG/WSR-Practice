@@ -1,4 +1,4 @@
-package com.example.wsrpractice.data.storage.user
+package com.example.wsrpractice.data.storage.impl.user
 
 import android.content.Context
 

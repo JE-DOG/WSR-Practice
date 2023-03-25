@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.wsrpractice.R
-import com.example.wsrpractice.data.network.model.UserPatientCard
+import com.example.wsrpractice.data.network.model.UserPatientCardNetwork
 import com.example.wsrpractice.databinding.FragmentProfileBinding
 import com.example.wsrpractice.presentetion.mvvm.ProfileViewModel
 import com.example.wsrpractice.presentetion.mvvm.factory.ProfileViewModelFactory
@@ -108,7 +108,7 @@ class FragmentProfile:Fragment() {
             val dataBorn = inputDataBorn.text.toString()
             val gender = setGenderEditText.text.toString()
 
-            val patientCard = UserPatientCard(
+            val patientCard = UserPatientCardNetwork(
                 firstname = name,
                 middlename = surname,
                 lastname = lastname,

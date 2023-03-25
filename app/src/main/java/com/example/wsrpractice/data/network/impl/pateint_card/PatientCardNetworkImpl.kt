@@ -3,24 +3,22 @@ package com.example.wsrpractice.data.network.impl.pateint_card
 import android.annotation.SuppressLint
 import android.util.Log
 import com.example.wsrpractice.data.network.Network
-import com.example.wsrpractice.data.network.model.AnswerServerSendCode
 import com.example.wsrpractice.data.network.model.ResponseCreatePatientCard
 import com.example.wsrpractice.data.network.model.ResponseUpdatePatientCard
-import com.example.wsrpractice.data.network.model.UserPatientCard
+import com.example.wsrpractice.data.network.model.UserPatientCardNetwork
 import com.google.gson.Gson
 import retrofit2.Response
-import retrofit2.converter.gson.GsonConverterFactory
 
 class PatientCardNetworkImpl: PatientCardNetwork {
 
     private val api = Network.apiPatientCard
 
-    override suspend fun createCard(token:String,userPatientCard: UserPatientCard): ResponseCreatePatientCard {
-        Log.d("ServerPatientTest", Gson().toJson(userPatientCard))
+    override suspend fun createCard(token:String, userPatientCardNetwork: UserPatientCardNetwork): ResponseCreatePatientCard {
+        Log.d("ServerPatientTest", Gson().toJson(userPatientCardNetwork))
 
         val response = api.createPatientCard(
             token = token,
-            userPatientCard = userPatientCard
+            userPatientCardNetwork = userPatientCardNetwork
         )
         Log.d("ServerPatientTest", response.toString())
         return response
@@ -28,11 +26,11 @@ class PatientCardNetworkImpl: PatientCardNetwork {
     }
 
     @SuppressLint("SuspiciousIndentation")
-    override suspend fun updateCard(token:String, userPatientCard: UserPatientCard): ResponseUpdatePatientCard {
-        Log.d("ServerPatientTest", Gson().toJson(userPatientCard))
+    override suspend fun updateCard(token:String, userPatientCardNetwork: UserPatientCardNetwork): ResponseUpdatePatientCard {
+        Log.d("ServerPatientTest", Gson().toJson(userPatientCardNetwork))
 
 
-        val response = api.updatePatientCard(token = token, userPatientCard = userPatientCard)
+        val response = api.updatePatientCard(token = token, userPatientCardNetwork = userPatientCardNetwork)
         Log.d("ServerPatientTest",response.toString())
         return response
 
