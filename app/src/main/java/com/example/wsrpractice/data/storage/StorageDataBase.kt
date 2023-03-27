@@ -9,6 +9,7 @@ import com.example.wsrpractice.data.storage.model.PatientCardEntity
 
 @Database(entities = [AnalyzeEntity::class,PatientCardEntity::class], version = 2)
 abstract class StorageDataBase:RoomDatabase() {
+
     abstract fun analyzeDao():AnalyzeDao
 
     abstract fun patientCardDao(): PatientCardDao

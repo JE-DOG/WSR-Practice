@@ -25,5 +25,9 @@ class AnalyzeRepositoryImpl(private val storage: AnalyzeStorage): AnalyzeReposit
         return storage.getAnalyzes()
     }
 
+    override suspend fun removeAllAnalyzes() {
+        storage.removeAllAnalyze()
+    }
+
 
 }

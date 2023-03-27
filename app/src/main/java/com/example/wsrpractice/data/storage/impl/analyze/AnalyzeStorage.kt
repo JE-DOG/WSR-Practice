@@ -12,4 +12,6 @@ interface AnalyzeStorage {
 
     suspend fun getAnalyzes(): List<AnalyzeEntity>
 
+    suspend fun removeAllAnalyze()
+
 }

@@ -19,11 +19,15 @@ class AnalyzeStorageImpl: AnalyzeStorage {
     }
 
     override suspend fun removeAnalyze(analyzeEntity: AnalyzeEntity) {
-        TODO("Not yet implemented")
+        db.removeAnalyze(analyzeEntity)
     }
 
     override suspend fun getAnalyzes(): List<AnalyzeEntity> {
-        TODO("Not yet implemented")
+        return db.getAnalyzes()
+    }
+
+    override suspend fun removeAllAnalyze() {
+        db.removeAllAnalyzes()
     }
 
 

@@ -21,4 +21,7 @@ interface AnalyzeDao {
             "FROM analyze_table")
     suspend fun getAnalyzes(): List<AnalyzeEntity>
 
+    @Query("DELETE FROM analyze_table ")
+    suspend fun removeAllAnalyzes()
+
 }

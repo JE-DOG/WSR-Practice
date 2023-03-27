@@ -68,7 +68,6 @@ class FragmentAnalyze:  Fragment() {
         val toBasketBut = binding.basketBut
 
         toBasketBut.setOnClickListener {
-            viewModel.saveAnalyzes()
             router.navigateTo(Screens.toBasket())
         }
 
@@ -396,8 +395,6 @@ class FragmentAnalyze:  Fragment() {
             }
             Log.d("ChipTest","2")
             wasChipChecked!!.performClick()
-
-
 
         }
 

@@ -12,4 +12,6 @@ interface AnalyzeRepository {
 
     suspend fun getAnalyzes(): List<AnalyzeEntity>
 
+    suspend fun removeAllAnalyzes()
+
 }

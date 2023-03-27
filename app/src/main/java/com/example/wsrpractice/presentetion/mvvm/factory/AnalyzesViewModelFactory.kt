@@ -9,11 +9,13 @@ import com.example.wsrpractice.data.repository.AnalyzeRepositoryImpl
 import com.example.wsrpractice.data.repository.CatalogRepositoryImpl
 import com.example.wsrpractice.data.storage.impl.analyze.AnalyzeStorageImpl
 import com.example.wsrpractice.domain.use_case.user.analyze.AddAnalyzesUseCase
+import com.example.wsrpractice.domain.use_case.user.analyze.GetAnalyzesUseCase
 import com.example.wsrpractice.domain.use_case.user.catalog.GetAnalyzesCatalogUseCase
 import com.example.wsrpractice.presentetion.mvvm.AnalyzesViewModel
 
 class AnalyzesViewModelFactory: ViewModelProvider.Factory {
 
+    //catalog
 
     private val catalogNetwork by lazy {
         CatalogNetworkImpl()
@@ -43,11 +45,16 @@ class AnalyzesViewModelFactory: ViewModelProvider.Factory {
         AddAnalyzesUseCase(analyzeRepository)
     }
 
+    private val getAnalyzesUseCase by lazy {
+        GetAnalyzesUseCase(analyzeRepository)
+    }
+
 
     override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
         return when(modelClass){
             AnalyzesViewModel::class.java -> {
                 AnalyzesViewModel(
+                    getAnalyzesUseCase,
                     getAnalyzesCatalogUseCase,
                     addAnalyzesCatalogUseCase
                 ) as T
