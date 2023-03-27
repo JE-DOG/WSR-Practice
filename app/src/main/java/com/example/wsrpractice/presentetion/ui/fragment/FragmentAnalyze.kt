@@ -64,8 +64,11 @@ class FragmentAnalyze:  Fragment() {
     }
 
     private fun initButtons(){
+        // basket but
         val toBasketBut = binding.basketBut
+
         toBasketBut.setOnClickListener {
+            viewModel.saveAnalyzes()
             router.navigateTo(Screens.toBasket())
         }
 

@@ -3,6 +3,7 @@ package com.example.wsrpractice.data.storage.impl.user
 import android.content.Context
 
 class UserStorageImp(context: Context): UserStorage {
+
     val sharedPreferences = context.getSharedPreferences(
         TOKEN_SHARED_PREFERENCE_NAME,
         Context.MODE_PRIVATE

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.wsrpractice.data.network.impl.pateint_card.PatientCardNetworkImpl
 import com.example.wsrpractice.data.repository.PatientCardRepositoryImpl
+import com.example.wsrpractice.data.storage.impl.patient_card.PatientCardStorageImpl
 import com.example.wsrpractice.domain.use_case.user.patient_card.CreatePatientCardUseCase
 import com.example.wsrpractice.domain.use_case.user.patient_card.SetAvatarUseCase
 import com.example.wsrpractice.domain.use_case.user.patient_card.UpdatePatientCardUseCase
@@ -15,8 +16,15 @@ class ProfileViewModelFactory:ViewModelProvider.Factory {
         PatientCardNetworkImpl()
     }
 
+    private val patientCardStorage by lazy {
+        PatientCardStorageImpl()
+    }
+
     private val patientCardRepository by lazy {
-        PatientCardRepositoryImpl(patientCardNetwork = patientCardNetwork)
+        PatientCardRepositoryImpl(
+            patientCardNetwork = patientCardNetwork,
+            patientCardStorage = patientCardStorage
+        )
     }
 
     private val createPatientCardUseCase by lazy {

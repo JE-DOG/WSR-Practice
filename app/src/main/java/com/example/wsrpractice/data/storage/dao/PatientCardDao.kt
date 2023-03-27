@@ -11,7 +11,7 @@ interface PatientCardDao {
     suspend fun addCard(patientCardEntity: PatientCardEntity):Long
 
     @Delete(PatientCardEntity::class)
-    suspend fun removeCard(patientCardEntity: PatientCardEntity):Long
+    suspend fun removeCard(patientCardEntity: PatientCardEntity):Int
 
     @Query("SELECT * " +
                 "FROM patient_card_table")

@@ -5,11 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.wsrpractice.data.network.model.ResponseServerCatalog
+import com.example.wsrpractice.domain.use_case.user.analyze.AddAnalyzesUseCase
 import com.example.wsrpractice.domain.use_case.user.catalog.GetAnalyzesCatalogUseCase
 import kotlinx.coroutines.launch
 
 class AnalyzesViewModel(
-    private val getAnalyzesCatalogUseCase: GetAnalyzesCatalogUseCase
+    private val getAnalyzesCatalogUseCase: GetAnalyzesCatalogUseCase,
+    private val addAnalyzesUseCase: AddAnalyzesUseCase
 ):ViewModel() {
 
     init {
@@ -50,6 +52,10 @@ class AnalyzesViewModel(
 
     fun setCategory(category: String){
         categoryLiveData.value = category
+    }
+
+    fun saveAnalyzes(){
+
     }
 
 }
