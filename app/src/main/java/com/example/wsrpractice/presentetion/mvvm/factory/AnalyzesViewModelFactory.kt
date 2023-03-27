@@ -8,10 +8,10 @@ import com.example.wsrpractice.data.network.impl.catalog.CatalogNetworkImpl
 import com.example.wsrpractice.data.repository.AnalyzeRepositoryImpl
 import com.example.wsrpractice.data.repository.CatalogRepositoryImpl
 import com.example.wsrpractice.data.storage.impl.analyze.AnalyzeStorageImpl
-import com.example.wsrpractice.domain.use_case.user.analyze.AddAnalyzesUseCase
-import com.example.wsrpractice.domain.use_case.user.analyze.GetAnalyzesUseCase
+import com.example.wsrpractice.domain.use_case.user.analyze.*
 import com.example.wsrpractice.domain.use_case.user.catalog.GetAnalyzesCatalogUseCase
 import com.example.wsrpractice.presentetion.mvvm.AnalyzesViewModel
+import com.example.wsrpractice.presentetion.mvvm.BasketViewModel
 
 class AnalyzesViewModelFactory: ViewModelProvider.Factory {
 
@@ -49,16 +49,38 @@ class AnalyzesViewModelFactory: ViewModelProvider.Factory {
         GetAnalyzesUseCase(analyzeRepository)
     }
 
+    private val setPatientsUseCase by lazy {
+        SetPatientsUseCase(analyzeRepository)
+    }
+
+    private val removeAnalyzeUseCase by lazy {
+        RemoveAnalyzeUseCase(analyzeRepository)
+    }
+
+    private val removeAllAnalyzesUseCase by lazy {
+        RemoveAllAnalyzesUseCase(analyzeRepository)
+    }
 
     override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
         return when(modelClass){
+
             AnalyzesViewModel::class.java -> {
                 AnalyzesViewModel(
-                    getAnalyzesUseCase,
+                    removeAllAnalyzesUseCase,
                     getAnalyzesCatalogUseCase,
-                    addAnalyzesCatalogUseCase
+                    addAnalyzesCatalogUseCase,
+                    removeAnalyzeUseCase
                 ) as T
             }
+
+            BasketViewModel::class.java -> {
+                BasketViewModel(
+                    getAnalyzesUseCase,
+                    setPatientsUseCase,
+                    removeAnalyzeUseCase
+                ) as T
+            }
+
             else -> {
                 throw java.lang.Exception()
             }

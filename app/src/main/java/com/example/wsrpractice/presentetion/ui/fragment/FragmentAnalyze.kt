@@ -25,6 +25,7 @@ import com.example.wsrpractice.databinding.FragmentAnalezyBinding
 import com.example.wsrpractice.presentetion.mvvm.AnalyzesViewModel
 import com.example.wsrpractice.presentetion.mvvm.factory.AnalyzesViewModelFactory
 import com.example.wsrpractice.presentetion.screens.Screens
+import com.example.wsrpractice.presentetion.ui.activity.MainActivity
 import com.example.wsrpractice.presentetion.ui.adapters.recyclerView.RcvAnalyzesAdapter
 import com.example.wsrpractice.presentetion.ui.adapters.recyclerView.RcvAnalyzesListener
 import com.example.wsrpractice.presentetion.ui.adapters.recyclerView.RcvNewsAdapter
@@ -46,6 +47,9 @@ class FragmentAnalyze:  Fragment() {
         savedInstanceState: Bundle?
     ): View {
         viewModel.getAnalyzesCategory()
+        viewModel.removeAllAnalyze()
+        val activity = requireActivity() as MainActivity
+        activity.binding.bottomNav.visibility = View.VISIBLE
 
         binding = FragmentAnalezyBinding.inflate(inflater)
         return binding.root
@@ -365,6 +369,7 @@ class FragmentAnalyze:  Fragment() {
 
 
         viewModel.analyzes.observe(viewLifecycleOwner) { catalogs ->
+
             val responseServer = catalogs.map { it.category }.toSet().toList()
             chipGroup.removeAllViews()
 
@@ -398,11 +403,6 @@ class FragmentAnalyze:  Fragment() {
 
         }
 
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private fun initMotionLayout(){
-        val scroll = binding.contentMotionLayout
     }
 
 }
