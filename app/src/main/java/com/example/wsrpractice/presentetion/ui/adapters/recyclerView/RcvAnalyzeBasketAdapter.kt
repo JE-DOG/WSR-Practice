@@ -10,21 +10,40 @@ import com.example.wsrpractice.databinding.FragmentBasketBinding
 import com.example.wsrpractice.databinding.RcvItemListBasketBinding
 import com.example.wsrpractice.presentetion.model.Analyze
 
-class RcvAnalyzeBasketAdapter: RecyclerView.Adapter<RcvAnalyzeBasketAdapter.AnalyzeViewHolder>() {
+interface RcvAnalyzeBasketListener{
 
-    var analyzes = emptyList<Analyze>()
+    fun countPatientsHasChanged(isAdd:Boolean,analyze: Analyze)
+
+    fun removeAnalyze(analyze: Analyze)
+
+}
+
+class RcvAnalyzeBasketAdapter(private val listener: RcvAnalyzeBasketListener): RecyclerView.Adapter<RcvAnalyzeBasketAdapter.AnalyzeViewHolder>() {
+
+    var analyzes = mutableListOf<Analyze>()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
+    fun itemHasChange(analyze:Analyze){
+        val index = analyzes.indexOf(analyze)
+        analyzes[index] = analyze
+        notifyItemChanged(index)
+    }
+
+    fun itemHasRemoved(analyze: Analyze){
+        val index = analyzes.indexOf(analyze)
+        notifyItemRemoved(index)
+    }
+
     inner class AnalyzeViewHolder(private val binding:RcvItemListBasketBinding): RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("ClickableViewAccessibility")
         fun bind(analyze: Analyze){
             binding.priceTv.text = analyze.price + " ₽"
             binding.name.text = analyze.name
-            binding.patientsTv.text = if (analyze.patients > 1){ "${analyze.patients} Пациентов"}else{"1 Пациент"}
+            binding.patientsTv.text = if (analyze.patients > 1){ "${analyze.patients} Пациента"}else{"1 Пациент"}
 
             binding.patientsCounter.setOnTouchListener { v, event ->
 
@@ -36,17 +55,19 @@ class RcvAnalyzeBasketAdapter: RecyclerView.Adapter<RcvAnalyzeBasketAdapter.Anal
 
                     if (x >= fullX){
                         Log.d("TouchTest","patient added\nx:$x\nfullx / 2:$fullX ")
-
-                        analyze.patients--
+                        listener.countPatientsHasChanged(true,analyze)
                     }else{
                         Log.d("TouchTest","patient removed\nx:$x\nfullx / 2:$fullX ")
-
-                        analyze.patients++
+                        listener.countPatientsHasChanged(false,analyze)
                     }
 
                 }
                 true
             }
+            binding.deleteBut.setOnClickListener {
+                listener.removeAnalyze(analyze)
+            }
+
         }
 
     }
@@ -55,6 +76,7 @@ class RcvAnalyzeBasketAdapter: RecyclerView.Adapter<RcvAnalyzeBasketAdapter.Anal
         val inflater = LayoutInflater.from(parent.context)
         val binding = RcvItemListBasketBinding.inflate(inflater,parent,false)
         return AnalyzeViewHolder(binding)
+
     }
 
     override fun getItemCount(): Int = analyzes.size

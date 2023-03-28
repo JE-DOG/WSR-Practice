@@ -77,7 +77,8 @@ class AnalyzesViewModelFactory: ViewModelProvider.Factory {
                 BasketViewModel(
                     getAnalyzesUseCase,
                     setPatientsUseCase,
-                    removeAnalyzeUseCase
+                    removeAnalyzeUseCase,
+                    removeAllAnalyzesUseCase
                 ) as T
             }
 

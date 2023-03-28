@@ -1,12 +1,13 @@
 package com.example.wsrpractice.presentetion.screens
 
+import com.example.wsrpractice.databinding.FragmentCheckoutOrderBinding
 import com.example.wsrpractice.presentetion.ui.fragment.*
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 object Screens {
 
     fun nothing() = FragmentScreen{ FragmentNothing() }
-
+    fun checkoutOrder() = FragmentScreen { FragmentCheckoutOrder() }
     fun firstOnce() = FragmentScreen{ FragmentOnceScreen() }
     fun screenSaver() = FragmentScreen{ FragmentScreenSaver() }
     fun inputEmail() = FragmentScreen{ FragmentInputEmail() }
