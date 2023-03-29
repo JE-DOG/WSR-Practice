@@ -42,13 +42,10 @@ class FragmentBasket : Fragment() {
         initButtons()
 
         viewModel._analyzesLiveData.observe(viewLifecycleOwner){ it ->
-            var price = 0
+            val price = viewModel.getPrice()
             Log.d("DataBaseTest",it.toString())
-            val priceTv = binding.priceTv
-            it.forEach {
-                price += it.price.toInt()
-            }
-            priceTv.text = "$price ₽"
+
+            binding.priceTv.text = "$price ₽"
             adapterAnalyze.analyzes = it.toMutableList()
         }
     }

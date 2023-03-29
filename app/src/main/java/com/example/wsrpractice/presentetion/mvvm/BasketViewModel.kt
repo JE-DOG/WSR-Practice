@@ -21,6 +21,13 @@ class BasketViewModel(
     private val analyzesLiveData = MutableLiveData<MutableList<Analyze>>()
     val _analyzesLiveData = analyzesLiveData
 
+    fun getPrice():String{
+        var price = 0
+        analyzesLiveData.value?.forEach {
+            price += it.price.toInt()
+        }
+        return price.toString()
+    }
     fun removeAllAnalyze(){
         viewModelScope.launch {
             removeAllAnalyzesUseCase.execute()
