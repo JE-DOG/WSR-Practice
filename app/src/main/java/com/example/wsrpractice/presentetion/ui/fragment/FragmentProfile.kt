@@ -2,8 +2,6 @@ package com.example.wsrpractice.presentetion.ui.fragment
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.ContentResolver.MimeTypeInfo
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -14,10 +12,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.MimeTypeMap
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -56,13 +52,12 @@ class FragmentProfile:Fragment() {
 
     private fun initAvatars(){
         val avatar = binding.userAvatar
-        val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){imageUri: Uri? ->
-            avatar.setImageURI(imageUri)
-        }
-        val imageMimeType = "image/*"
+
         avatar.setOnClickListener{
 
-            AlertDialog.Builder(requireActivity()).setMessage("Выберете, как получить фото").setNegativeButton("Новое фото") { dialogInterface, i ->
+            AlertDialog.Builder(requireActivity())
+                .setMessage("Выберете, как получить фото")
+                .setNegativeButton("Новое фото") { dialogInterface, i ->
                 if (ActivityCompat.checkSelfPermission(
                         requireContext(),
                         android.Manifest.permission.CAMERA
@@ -80,12 +75,24 @@ class FragmentProfile:Fragment() {
                     startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
                 }
             }.setPositiveButton("Из галерии") { _,_ ->
-                getContent.launch(imageMimeType)
+                val imageUri = getImageFromStorage()
+                avatar.setImageURI(imageUri)
             }.show()
 
         }
 
 
+    }
+
+    private fun getImageFromStorage(): Uri?{
+        val imageMimeType = "image/*"
+        var imageUri: Uri? = null
+        val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){uri: Uri? ->
+            imageUri = uri
+        }
+
+        getContent.launch(imageMimeType)
+        return imageUri
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
