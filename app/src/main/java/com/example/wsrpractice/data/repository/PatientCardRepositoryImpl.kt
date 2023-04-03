@@ -14,7 +14,7 @@ class PatientCardRepositoryImpl(
     private val patientCardStorage: PatientCardStorage
     ): PatientCardRepository {
 
-    private val token = "Bearer ${App.token}"
+    private val token = "Bearer ${App.INSTANCE.token}"
 
     override suspend fun createCard(userPatientCardNetwork: UserPatientCardNetwork): PatientCardDomain {
         val response = patientCardNetwork.createCard(token = token, userPatientCardNetwork = userPatientCardNetwork)

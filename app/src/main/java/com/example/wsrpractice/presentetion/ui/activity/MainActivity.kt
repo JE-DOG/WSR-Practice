@@ -1,7 +1,12 @@
 package com.example.wsrpractice.presentetion.ui.activity
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
+import android.net.wifi.p2p.WifiP2pManager.NetworkInfoListener
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -26,11 +31,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        router.replaceScreen(Screens.analyze())
+        router.replaceScreen(Screens.analyze())
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView,FragmentAnalyze())
-            .commit()
+//        supportFragmentManager.beginTransaction()
+//            .replace(R.id.fragmentContainerView,FragmentAnalyze())
+//            .commit()
         initBottomNav()
 
         supportFragmentManager.addFragmentOnAttachListener { fragmentManager, fragment ->

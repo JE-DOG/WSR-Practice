@@ -1,12 +1,25 @@
 package com.example.wsrpractice.presentetion.ui.fragment
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.ContentResolver.MimeTypeInfo
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.MimeTypeMap
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -17,6 +30,8 @@ import com.example.wsrpractice.presentetion.mvvm.ProfileViewModel
 import com.example.wsrpractice.presentetion.mvvm.factory.ProfileViewModelFactory
 import kotlinx.coroutines.launch
 
+private const val CAMERA_REQUEST_CODE = 11
+private const val REQUEST_TAKE_PHOTO = 111
 class FragmentProfile:Fragment() {
 
     lateinit var binding:FragmentProfileBinding
@@ -35,9 +50,51 @@ class FragmentProfile:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initInputData()
+        initAvatars()
 
     }
 
+    private fun initAvatars(){
+        val avatar = binding.userAvatar
+        val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){imageUri: Uri? ->
+            avatar.setImageURI(imageUri)
+        }
+        val imageMimeType = "image/*"
+        avatar.setOnClickListener{
+
+            AlertDialog.Builder(requireActivity()).setMessage("Выберете, как получить фото").setNegativeButton("Новое фото") { dialogInterface, i ->
+                if (ActivityCompat.checkSelfPermission(
+                        requireContext(),
+                        android.Manifest.permission.CAMERA
+                    )
+                    !=
+                    PackageManager.PERMISSION_GRANTED
+                ){
+                    ActivityCompat.requestPermissions(requireActivity(),
+                        arrayOf(
+                            android.Manifest.permission.CAMERA
+                        ),
+                        CAMERA_REQUEST_CODE)
+                }else{
+                    val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                    startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
+                }
+            }.setPositiveButton("Из галерии") { _,_ ->
+                getContent.launch(imageMimeType)
+            }.show()
+
+        }
+
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_TAKE_PHOTO){
+            val bitmap = data?.extras?.get("data") as Bitmap
+            binding.userAvatar.setImageBitmap(bitmap)
+        }
+    }
     private fun initInputData(){
 
 
