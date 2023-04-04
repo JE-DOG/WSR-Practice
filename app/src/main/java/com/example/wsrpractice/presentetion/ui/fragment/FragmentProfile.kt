@@ -55,6 +55,7 @@ class FragmentProfile:Fragment() {
 
         avatar.setOnClickListener{
 
+
             AlertDialog.Builder(requireActivity())
                 .setMessage("Выберете, как получить фото")
                 .setNegativeButton("Новое фото") { dialogInterface, i ->
@@ -75,24 +76,17 @@ class FragmentProfile:Fragment() {
                     startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO)
                 }
             }.setPositiveButton("Из галерии") { _,_ ->
-                val imageUri = getImageFromStorage()
-                avatar.setImageURI(imageUri)
+                    val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){imageUri: Uri? ->
+                        avatar.setImageURI(imageUri)
+                    }
+                    val imageMimeType = "image/*"
+
+                    getContent.launch(imageMimeType)
             }.show()
 
         }
 
 
-    }
-
-    private fun getImageFromStorage(): Uri?{
-        val imageMimeType = "image/*"
-        var imageUri: Uri? = null
-        val getContent = registerForActivityResult(ActivityResultContracts.GetContent()){uri: Uri? ->
-            imageUri = uri
-        }
-
-        getContent.launch(imageMimeType)
-        return imageUri
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
