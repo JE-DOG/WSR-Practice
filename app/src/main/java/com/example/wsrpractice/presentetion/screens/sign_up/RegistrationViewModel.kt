@@ -1,4 +1,4 @@
-package com.example.wsrpractice.presentetion.mvvm
+package com.example.wsrpractice.presentetion.screens.sign_up
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

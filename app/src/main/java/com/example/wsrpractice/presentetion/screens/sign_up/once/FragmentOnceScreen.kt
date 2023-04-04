@@ -1,4 +1,4 @@
-package com.example.wsrpractice.presentetion.ui.fragment
+package com.example.wsrpractice.presentetion.screens.sign_up.once
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.example.wsrpractice.App
 import com.example.wsrpractice.R
+import com.example.wsrpractice.core.ui.BaseFragment
 import com.example.wsrpractice.databinding.FragmentOnceScreenBinding
 import com.example.wsrpractice.presentetion.screens.Screens
 import com.example.wsrpractice.presentetion.ui.adapters.viewPager.FichaViewPagerAdapter
@@ -18,23 +19,11 @@ import com.example.wsrpractice.presentetion.ui.fragment.ficha.FragmentSecondFich
 import com.example.wsrpractice.presentetion.ui.fragment.ficha.FragmentThirdFicha
 
 
-class FragmentOnceScreen: Fragment() {
+class FragmentOnceScreen: BaseFragment<FragmentOnceScreenBinding>(
+    FragmentOnceScreenBinding::inflate
+) {
 
-    lateinit var binding: FragmentOnceScreenBinding
-    val app = App.INSTANCE
-    val router = app.router
-
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        binding = FragmentOnceScreenBinding.inflate(inflater)
-        return binding.root
-    }
-
+    private val router = App.INSTANCE.router
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initViewPager()

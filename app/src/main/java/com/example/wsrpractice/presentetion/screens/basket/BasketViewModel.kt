@@ -1,4 +1,4 @@
-package com.example.wsrpractice.presentetion.mvvm
+package com.example.wsrpractice.presentetion.screens.basket
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData

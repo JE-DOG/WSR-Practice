@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentetion.ui.fragment.FragmentBasket"
+    tools:context=".presentetion.screens.basket.FragmentBasket"
     android:orientation="vertical"
     android:paddingHorizontal="20dp"
     android:paddingVertical="32dp">

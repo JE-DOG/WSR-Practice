@@ -1,30 +1,29 @@
-package com.example.wsrpractice.presentetion.ui.fragment
+package com.example.wsrpractice.presentetion.screens.analyze
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.wsrpractice.App
 import com.example.wsrpractice.R
+import com.example.wsrpractice.core.ui.BaseFragmentMvvm
 import com.example.wsrpractice.data.network.model.ResponseServerCatalog
 import com.example.wsrpractice.databinding.FragmentAnalezyBinding
-import com.example.wsrpractice.presentetion.mvvm.AnalyzesViewModel
-import com.example.wsrpractice.presentetion.mvvm.factory.AnalyzesViewModelFactory
+import com.example.wsrpractice.presentetion.mvvm.factory.ViewModelsFactory
 import com.example.wsrpractice.presentetion.screens.Screens
+import com.example.wsrpractice.presentetion.screens.analyze.bottom_sheet.FragmentBottomSheetDialogDetailAnalyze
+import com.example.wsrpractice.presentetion.screens.analyze.bottom_sheet.FragmentBottomSheetDialogDetailAnalyzeListener
 import com.example.wsrpractice.presentetion.ui.activity.MainActivity
 import com.example.wsrpractice.presentetion.ui.adapters.recyclerView.RcvAnalyzesAdapter
 import com.example.wsrpractice.presentetion.ui.adapters.recyclerView.RcvAnalyzesListener
@@ -33,26 +32,19 @@ import com.example.wsrpractice.presentetion.ui.adapters.recyclerView.RcvSearchAn
 import com.google.android.material.chip.Chip
 import kotlinx.coroutines.launch
 
-class FragmentAnalyze:  Fragment() {
+class FragmentAnalyze:  BaseFragmentMvvm<FragmentAnalezyBinding,AnalyzesViewModel>(
+    FragmentAnalezyBinding::inflate
+) {
+
     lateinit var adapter: RcvAnalyzesAdapter
-    lateinit var binding:FragmentAnalezyBinding
     private val router = App.INSTANCE.router
-    private val viewModel: AnalyzesViewModel by viewModels({requireActivity()}){
-        AnalyzesViewModelFactory()
+    override val viewModel: AnalyzesViewModel by viewModels({requireActivity()}){
+        ViewModelsFactory()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        viewModel.getAnalyzesCategory()
-        viewModel.removeAllAnalyze()
+    override fun init() {
         val activity = requireActivity() as MainActivity
         activity.binding.bottomNav.visibility = View.VISIBLE
-
-        binding = FragmentAnalezyBinding.inflate(inflater)
-        return binding.root
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
@@ -228,7 +220,6 @@ class FragmentAnalyze:  Fragment() {
     private fun createBottomSheetDialogAnalyzeDetail(analyze:ResponseServerCatalog){
         val listener:FragmentBottomSheetDialogDetailAnalyzeListener = {
             analyze.isSelected = !analyze.isSelected
-            //todo add analyze to basket
             if (analyze.isSelected){
                 viewModel.addAnalyze(it)
             }else{

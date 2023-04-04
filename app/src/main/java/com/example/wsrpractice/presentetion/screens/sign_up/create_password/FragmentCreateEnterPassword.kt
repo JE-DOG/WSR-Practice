@@ -1,24 +1,21 @@
-package com.example.wsrpractice.presentetion.ui.fragment
+package com.example.wsrpractice.presentetion.screens.sign_up.create_password
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.wsrpractice.App
+import com.example.wsrpractice.core.ui.BaseFragmentMvvm
 import com.example.wsrpractice.databinding.FragmentCreateEnterPasswordBinding
-import com.example.wsrpractice.presentetion.mvvm.RegistrationViewModel
+import com.example.wsrpractice.presentetion.screens.sign_up.RegistrationViewModel
 import com.example.wsrpractice.presentetion.mvvm.factory.RegistrationViewModelFactory
 import com.example.wsrpractice.presentetion.screens.Screens
-import java.lang.reflect.Array.set
 
-class FragmentCreateEnterPassword: Fragment() {
+class FragmentCreateEnterPassword: BaseFragmentMvvm<FragmentCreateEnterPasswordBinding, RegistrationViewModel>(
+    FragmentCreateEnterPasswordBinding::inflate
+) {
 
-    lateinit var binding: FragmentCreateEnterPasswordBinding
-    private val viewModel by viewModels<RegistrationViewModel> {
+    override val viewModel by viewModels<RegistrationViewModel> {
         RegistrationViewModelFactory(requireContext())
     }
     private val app = App.INSTANCE
@@ -34,15 +31,6 @@ class FragmentCreateEnterPassword: Fragment() {
             }
         }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentCreateEnterPasswordBinding.inflate(inflater)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -53,10 +41,6 @@ class FragmentCreateEnterPassword: Fragment() {
         }
 
 
-    }
-
-    private fun btnClick(view: View){
-        (view as Button)
     }
 
     private fun initInputNumber(){

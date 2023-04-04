@@ -1,40 +1,31 @@
-package com.example.wsrpractice.presentetion.ui.fragment
+package com.example.wsrpractice.presentetion.screens.sign_up.verify_email
 
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.wsrpractice.App
+import com.example.wsrpractice.core.ui.BaseFragmentMvvm
 import com.example.wsrpractice.databinding.FragmentVerifyEmailBinding
-import com.example.wsrpractice.presentetion.mvvm.RegistrationViewModel
+import com.example.wsrpractice.presentetion.screens.sign_up.RegistrationViewModel
 import com.example.wsrpractice.presentetion.screens.Screens
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class FragmentVerifyEmail: Fragment() {
+class FragmentVerifyEmail: BaseFragmentMvvm<FragmentVerifyEmailBinding, RegistrationViewModel>(
+    FragmentVerifyEmailBinding::inflate
+) {
 
-    private val viewModel by lazy {
+    override val viewModel by lazy {
         ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
     }
 
-    lateinit var binding: FragmentVerifyEmailBinding
     private val app = App.INSTANCE
     private val router = app.router
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentVerifyEmailBinding.inflate(inflater)
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

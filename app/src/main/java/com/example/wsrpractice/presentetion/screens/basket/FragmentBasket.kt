@@ -1,39 +1,28 @@
-package com.example.wsrpractice.presentetion.ui.fragment
+package com.example.wsrpractice.presentetion.screens.basket
 
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import com.example.wsrpractice.App
+import com.example.wsrpractice.core.ui.BaseFragmentMvvm
 import com.example.wsrpractice.databinding.FragmentBasketBinding
 import com.example.wsrpractice.presentetion.model.Analyze
-import com.example.wsrpractice.presentetion.mvvm.BasketViewModel
-import com.example.wsrpractice.presentetion.mvvm.factory.AnalyzesViewModelFactory
+import com.example.wsrpractice.presentetion.mvvm.factory.ViewModelsFactory
 import com.example.wsrpractice.presentetion.screens.Screens
 import com.example.wsrpractice.presentetion.ui.adapters.recyclerView.RcvAnalyzeBasketAdapter
 import com.example.wsrpractice.presentetion.ui.adapters.recyclerView.RcvAnalyzeBasketListener
 
-class FragmentBasket : Fragment() {
+class FragmentBasket : BaseFragmentMvvm<FragmentBasketBinding,BasketViewModel>(
+    FragmentBasketBinding::inflate
+) {
 
-    private val viewModel by viewModels<BasketViewModel>({requireActivity()}) {
-        AnalyzesViewModelFactory()
+    override val viewModel by viewModels<BasketViewModel>({requireActivity()}) {
+        ViewModelsFactory()
     }
     private val router = App.INSTANCE.router
-    lateinit var binding:FragmentBasketBinding
     lateinit var adapterAnalyze: RcvAnalyzeBasketAdapter
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        viewModel.getAnalyzes()
-        binding = FragmentBasketBinding.inflate(inflater)
-        return binding.root
-    }
 
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

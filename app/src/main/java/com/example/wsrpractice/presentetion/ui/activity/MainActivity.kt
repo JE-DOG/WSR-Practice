@@ -1,21 +1,17 @@
 package com.example.wsrpractice.presentetion.ui.activity
 
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
-import android.net.wifi.p2p.WifiP2pManager.NetworkInfoListener
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.wsrpractice.App
 import com.example.wsrpractice.R
 import com.example.wsrpractice.databinding.ActivityMainBinding
-import com.example.wsrpractice.presentetion.mvvm.RegistrationViewModel
-import com.example.wsrpractice.presentetion.mvvm.factory.RegistrationViewModelFactory
 import com.example.wsrpractice.presentetion.screens.Screens
+import com.example.wsrpractice.presentetion.screens.analyze.FragmentAnalyze
+import com.example.wsrpractice.presentetion.screens.analyze.bottom_sheet.FragmentBottomSheetDialogDetailAnalyze
+import com.example.wsrpractice.presentetion.screens.checkout_order.FragmentCheckoutOrder
+import com.example.wsrpractice.presentetion.screens.nothing.FragmentNothing
+import com.example.wsrpractice.presentetion.screens.profile.FragmentProfile
 import com.example.wsrpractice.presentetion.ui.fragment.*
 import com.github.terrakok.cicerone.androidx.AppNavigator
 
@@ -31,11 +27,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        router.replaceScreen(Screens.analyze())
+//        router.replaceScreen(Screens.analyze())
 
-//        supportFragmentManager.beginTransaction()
-//            .replace(R.id.fragmentContainerView,FragmentAnalyze())
-//            .commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainerView,FragmentCheckoutOrder())
+            .commit()
         initBottomNav()
 
         supportFragmentManager.addFragmentOnAttachListener { fragmentManager, fragment ->

@@ -1,4 +1,4 @@
-package com.example.wsrpractice.presentetion.ui.fragment
+package com.example.wsrpractice.presentetion.screens.analyze.bottom_sheet
 
 import android.annotation.SuppressLint
 import android.content.Context

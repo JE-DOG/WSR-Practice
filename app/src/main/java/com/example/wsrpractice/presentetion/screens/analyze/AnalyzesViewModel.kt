@@ -1,6 +1,7 @@
-package com.example.wsrpractice.presentetion.mvvm
+package com.example.wsrpractice.presentetion.screens.analyze
 
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,6 +11,7 @@ import com.example.wsrpractice.domain.use_case.user.analyze.RemoveAllAnalyzesUse
 import com.example.wsrpractice.domain.use_case.user.analyze.RemoveAnalyzeUseCase
 import com.example.wsrpractice.domain.use_case.user.catalog.GetAnalyzesCatalogUseCase
 import com.example.wsrpractice.presentetion.model.Analyze
+import com.example.wsrpractice.presentetion.ui.activity.MainActivity
 import kotlinx.coroutines.launch
 
 class AnalyzesViewModel(
@@ -18,6 +20,10 @@ class AnalyzesViewModel(
     private val addAnalyzesUseCase: AddAnalyzesUseCase,
     private val removeAnalyzeUseCase: RemoveAnalyzeUseCase
 ):ViewModel() {
+
+    init {
+        getAnalyzesCategory()
+    }
 
     private val analyzesLiveData= MutableLiveData<List<ResponseServerCatalog>>()
     val analyzes = analyzesLiveData
@@ -69,6 +75,7 @@ class AnalyzesViewModel(
         viewModelScope.launch {
             val response = getAnalyzesCatalogUseCase.execute()
             Log.d("serverTestCatalog",response.toString())
+            removeAllAnalyze()
             analyzesLiveData.postValue(response)
         }
     }

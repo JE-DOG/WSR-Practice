@@ -1,4 +1,4 @@
-package com.example.wsrpractice.presentetion.ui.fragment
+package com.example.wsrpractice.presentetion.screens.profile
 
 import android.app.Activity
 import android.app.AlertDialog
@@ -9,39 +9,28 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.wsrpractice.R
+import com.example.wsrpractice.core.ui.BaseFragmentMvvm
 import com.example.wsrpractice.data.network.model.UserPatientCardNetwork
 import com.example.wsrpractice.databinding.FragmentProfileBinding
-import com.example.wsrpractice.presentetion.mvvm.ProfileViewModel
-import com.example.wsrpractice.presentetion.mvvm.factory.ProfileViewModelFactory
+import com.example.wsrpractice.presentetion.mvvm.factory.ViewModelsFactory
 import kotlinx.coroutines.launch
 
 private const val CAMERA_REQUEST_CODE = 11
 private const val REQUEST_TAKE_PHOTO = 111
-class FragmentProfile:Fragment() {
+class FragmentProfile:BaseFragmentMvvm<FragmentProfileBinding, ProfileViewModel>(
+    FragmentProfileBinding::inflate
+) {
 
-    lateinit var binding:FragmentProfileBinding
-    private val viewModel by lazy{
-        ViewModelProvider(requireActivity(),ProfileViewModelFactory())[ProfileViewModel::class.java]
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentProfileBinding.inflate(inflater)
-        return binding.root
+    override val viewModel by lazy{
+        ViewModelProvider(requireActivity(),ViewModelsFactory())[ProfileViewModel::class.java]
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -85,8 +74,6 @@ class FragmentProfile:Fragment() {
             }.show()
 
         }
-
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
