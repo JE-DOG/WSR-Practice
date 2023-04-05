@@ -127,6 +127,13 @@ class FragmentMapSetUserAddress: BaseFragmentMvvm<FragmentMapSetUserAddressBindi
                 initLocationSettings()
             }
         }
+
+        //back screen
+        binding.backBut.apply {
+            this.setOnClickListener {
+                back(null)
+            }
+        }
     }
 
     private fun initLocationSettings(){

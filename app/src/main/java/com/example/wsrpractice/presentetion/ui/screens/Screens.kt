@@ -3,6 +3,8 @@ package com.example.wsrpractice.presentetion.ui.screens
 import com.example.wsrpractice.presentetion.ui.screens.analyze.FragmentAnalyze
 import com.example.wsrpractice.presentetion.ui.screens.basket.FragmentBasket
 import com.example.wsrpractice.presentetion.ui.screens.checkout_order.main.FragmentCheckoutOrder
+import com.example.wsrpractice.presentetion.ui.screens.checkout_order.map.FragmentMapAddressDetail
+import com.example.wsrpractice.presentetion.ui.screens.checkout_order.map.FragmentMapSetUserAddress
 import com.example.wsrpractice.presentetion.ui.screens.sign_up.create_password.FragmentCreateEnterPassword
 import com.example.wsrpractice.presentetion.ui.screens.nothing.FragmentNothing
 import com.example.wsrpractice.presentetion.ui.screens.sign_up.once.FragmentOnceScreen
@@ -25,5 +27,7 @@ object Screens {
     fun profile() = FragmentScreen{ FragmentProfile() }
 
     fun toBasket() = FragmentScreen { FragmentBasket() }
+
+    fun mapAddress() = FragmentScreen { FragmentMapSetUserAddress() }
 
 }

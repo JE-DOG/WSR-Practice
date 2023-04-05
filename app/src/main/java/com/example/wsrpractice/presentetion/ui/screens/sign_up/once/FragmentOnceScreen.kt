@@ -23,7 +23,6 @@ class FragmentOnceScreen: BaseFragment<FragmentOnceScreenBinding>(
     FragmentOnceScreenBinding::inflate
 ) {
 
-    private val router = App.INSTANCE.router
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initViewPager()

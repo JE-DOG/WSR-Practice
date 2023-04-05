@@ -24,8 +24,6 @@ class FragmentInputEmail: BaseFragmentMvvm<FragmentInputEmailBinding, Registrati
     override val viewModel by lazy {
         ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
     }
-    private val app = App.INSTANCE
-    private val router = app.router
 //    private val viewModel by viewModels<> {  }
 
 

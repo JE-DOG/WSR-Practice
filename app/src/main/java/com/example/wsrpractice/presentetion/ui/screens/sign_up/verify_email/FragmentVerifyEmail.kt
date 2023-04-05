@@ -23,9 +23,6 @@ class FragmentVerifyEmail: BaseFragmentMvvm<FragmentVerifyEmailBinding, Registra
         ViewModelProvider(requireActivity())[RegistrationViewModel::class.java]
     }
 
-    private val app = App.INSTANCE
-    private val router = app.router
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

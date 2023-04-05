@@ -21,7 +21,6 @@ class FragmentBasket : BaseFragmentMvvm<FragmentBasketBinding, BasketViewModel>(
     override val viewModel by viewModels<BasketViewModel>({requireActivity()}) {
         ViewModelsFactory()
     }
-    private val router = App.INSTANCE.router
     lateinit var adapterAnalyze: RcvAnalyzeBasketAdapter
 
     @SuppressLint("SetTextI18n")

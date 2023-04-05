@@ -37,7 +37,6 @@ class FragmentAnalyze:  BaseFragmentMvvm<FragmentAnalezyBinding, AnalyzesViewMod
 ) {
 
     lateinit var adapter: RcvAnalyzesAdapter
-    private val router = App.INSTANCE.router
     override val viewModel: AnalyzesViewModel by viewModels({requireActivity()}){
         ViewModelsFactory()
     }

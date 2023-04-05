@@ -5,9 +5,10 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import com.example.wsrpractice.core.ui.BaseFragmentMvvm
 import com.example.wsrpractice.databinding.FragmentCheckoutOrderBinding
+import com.example.wsrpractice.presentetion.ui.screens.Screens
 import com.example.wsrpractice.presentetion.ui.screens.checkout_order.CheckoutOrderViewModel
 
-class FragmentCheckoutOrder(): BaseFragmentMvvm<FragmentCheckoutOrderBinding, CheckoutOrderViewModel>(
+class FragmentCheckoutOrder: BaseFragmentMvvm<FragmentCheckoutOrderBinding, CheckoutOrderViewModel>(
     FragmentCheckoutOrderBinding::inflate
 ) {
 
@@ -19,9 +20,10 @@ class FragmentCheckoutOrder(): BaseFragmentMvvm<FragmentCheckoutOrderBinding, Ch
     }
 
     private fun initButs(){
-        val address = binding.addressBut
-        address.setOnClickListener {
-
+        binding.addressBut.apply {
+            setOnClickListener {
+                router.navigateTo(Screens.mapAddress())
+            }
         }
 
 

@@ -18,8 +18,6 @@ class FragmentCreateEnterPassword: BaseFragmentMvvm<FragmentCreateEnterPasswordB
     override val viewModel by viewModels<RegistrationViewModel> {
         RegistrationViewModelFactory(requireContext())
     }
-    private val app = App.INSTANCE
-    private val router = app.router
     private var password = ""
         set(value) {
             if (value.length == 4){

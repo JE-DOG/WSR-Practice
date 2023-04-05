@@ -12,7 +12,6 @@ class FragmentScreenSaver: BaseFragment<FragmentScreenSaverBinding>(
     FragmentScreenSaverBinding::inflate
 ) {
 
-    private val router = App.INSTANCE.router
     private val seconds_for_replace = 3L
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
