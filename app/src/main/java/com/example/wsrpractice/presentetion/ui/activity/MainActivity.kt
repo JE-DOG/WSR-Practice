@@ -6,12 +6,10 @@ import androidx.core.view.isVisible
 import com.example.wsrpractice.App
 import com.example.wsrpractice.R
 import com.example.wsrpractice.databinding.ActivityMainBinding
-import com.example.wsrpractice.databinding.FragmentSetUserAddressBinding
 import com.example.wsrpractice.presentetion.ui.screens.Screens
 import com.example.wsrpractice.presentetion.ui.screens.analyze.FragmentAnalyze
 import com.example.wsrpractice.presentetion.ui.screens.analyze.bottom_sheet.FragmentBottomSheetDialogDetailAnalyze
-import com.example.wsrpractice.presentetion.ui.screens.checkout_order.main.FragmentCheckoutOrder
-import com.example.wsrpractice.presentetion.ui.screens.checkout_order.map.FragmentSetUserAddress
+import com.example.wsrpractice.presentetion.ui.screens.checkout_order.map.FragmentMapSetUserAddress
 import com.example.wsrpractice.presentetion.ui.screens.nothing.FragmentNothing
 import com.example.wsrpractice.presentetion.ui.screens.profile.FragmentProfile
 import com.github.terrakok.cicerone.androidx.AppNavigator
@@ -31,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 //        router.replaceScreen(Screens.analyze())
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, FragmentSetUserAddress())
+            .replace(R.id.fragmentContainerView, FragmentMapSetUserAddress())
             .commit()
         initBottomNav()
 

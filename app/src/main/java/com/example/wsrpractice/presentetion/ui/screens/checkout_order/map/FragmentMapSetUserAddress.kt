@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.viewModels
 import com.example.wsrpractice.core.ui.BaseFragmentMvvm
-import com.example.wsrpractice.databinding.FragmentSetUserAddressBinding
+import com.example.wsrpractice.databinding.FragmentMapSetUserAddressBinding
 import com.example.wsrpractice.presentetion.ui.screens.checkout_order.CheckoutOrderViewModel
 import com.google.android.gms.location.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -20,14 +20,12 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
 import com.example.wsrpractice.R
-import org.osmdroid.events.MapEvent
 import org.osmdroid.events.MapEventsReceiver
-import org.osmdroid.events.MapListener
 import org.osmdroid.views.overlay.MapEventsOverlay
 
 private const val LOCATION_CODE = 1
-class FragmentSetUserAddress: BaseFragmentMvvm<FragmentSetUserAddressBinding, CheckoutOrderViewModel>(
-    FragmentSetUserAddressBinding::inflate
+class FragmentMapSetUserAddress: BaseFragmentMvvm<FragmentMapSetUserAddressBinding, CheckoutOrderViewModel>(
+    FragmentMapSetUserAddressBinding::inflate
 ) {
 
     override val viewModel: CheckoutOrderViewModel by viewModels()
@@ -52,6 +50,10 @@ class FragmentSetUserAddress: BaseFragmentMvvm<FragmentSetUserAddressBinding, Ch
             peekHeight = 200
             state = BottomSheetBehavior.STATE_COLLAPSED
         }
+
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.container,FragmentMapAddressDetail())
+            .commit()
     }
 
     private fun setMarker(geoPoint: GeoPoint){

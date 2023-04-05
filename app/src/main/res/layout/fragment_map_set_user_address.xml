@@ -4,6 +4,36 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="13dp"
+        android:background="@color/white"
+        android:translationZ="1dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/headerTextView"
+            android:layout_weight="1"
+            android:text="Выбор адреса"
+            android:gravity="center"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/back"
+            android:visibility="invisible"/>
+
+    </LinearLayout>
+
     <org.osmdroid.views.MapView
         android:id="@+id/map_view"
 
@@ -25,7 +55,7 @@
 
         android:background="@drawable/background_bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="wrap_content"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <ImageView
