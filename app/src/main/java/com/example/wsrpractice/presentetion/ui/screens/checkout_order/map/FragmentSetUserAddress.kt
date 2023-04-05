@@ -1,5 +1,6 @@
 package com.example.wsrpractice.presentetion.ui.screens.checkout_order.map
 
+import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -19,6 +20,10 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.overlay.Marker
 import com.example.wsrpractice.R
+import org.osmdroid.events.MapEvent
+import org.osmdroid.events.MapEventsReceiver
+import org.osmdroid.events.MapListener
+import org.osmdroid.views.overlay.MapEventsOverlay
 
 private const val LOCATION_CODE = 1
 class FragmentSetUserAddress: BaseFragmentMvvm<FragmentSetUserAddressBinding, CheckoutOrderViewModel>(
@@ -27,12 +32,6 @@ class FragmentSetUserAddress: BaseFragmentMvvm<FragmentSetUserAddressBinding, Ch
 
     override val viewModel: CheckoutOrderViewModel by viewModels()
     lateinit var marker:Marker
-    private var geoPoint = GeoPoint(42.0,47.0)
-        set(value) {
-            field = value
-
-            setMarker()
-        }
 
     private val fusedLocationProvider by lazy {
         LocationServices.getFusedLocationProviderClient(requireContext())
@@ -55,7 +54,7 @@ class FragmentSetUserAddress: BaseFragmentMvvm<FragmentSetUserAddressBinding, Ch
         }
     }
 
-    private fun setMarker(){
+    private fun setMarker(geoPoint: GeoPoint){
         val map = binding.mapView
         marker.position = geoPoint
 
@@ -65,22 +64,44 @@ class FragmentSetUserAddress: BaseFragmentMvvm<FragmentSetUserAddressBinding, Ch
 
             invalidate()
         }
+
+
     }
 
     private fun initMap(){
         Configuration.getInstance().load(requireContext(),requireActivity().getSharedPreferences("OSM", Context.MODE_PRIVATE))
 
+        val startPoint = GeoPoint(42.0,49.0)
+
+        val listener = object : MapEventsReceiver{
+
+            override fun singleTapConfirmedHelper(touchGeo: GeoPoint?): Boolean {
+                viewModel.setGeoPoint(touchGeo!!)
+
+                return true
+            }
+
+            override fun longPressHelper(p: GeoPoint?): Boolean {
+
+                return true
+            }
+
+
+        }
+
+        val overlayListener = MapEventsOverlay(listener)
 
         val map = binding.mapView.apply {
             this.setTileSource(TileSourceFactory.MAPNIK)
             this.setMultiTouchControls(true)
             this.minZoomLevel = 9.0
             this.maxZoomLevel = 20.0
+            this.overlays.add(overlayListener)
 
 
             this.controller.apply {
                 setZoom(7.0)
-                setCenter(geoPoint)
+                setCenter(startPoint)
             }
 
             invalidate()
@@ -89,6 +110,10 @@ class FragmentSetUserAddress: BaseFragmentMvvm<FragmentSetUserAddressBinding, Ch
         marker = Marker(map).apply {
             this.icon = ActivityCompat.getDrawable(requireContext(),R.drawable.ic_my_location_marker)
             this.title = "Вы здесь"
+        }
+
+        viewModel._geoPointLiveData.observe(viewLifecycleOwner){
+            setMarker(it)
         }
 
     }
@@ -107,30 +132,32 @@ class FragmentSetUserAddress: BaseFragmentMvvm<FragmentSetUserAddressBinding, Ch
         if (
             ActivityCompat.checkSelfPermission(
                 requireActivity(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION
             )
             ==
             PackageManager.PERMISSION_GRANTED
         ){
 
-            Log.d("gpsTest","without problem get your position")
-
+            val resultInterval:Long = 10
 
             val locationCallback = object :LocationCallback(){
-                override fun onLocationResult(result: LocationResult) {
-                    val latitude = result.lastLocation!!.latitude
-                    val longitude = result.lastLocation!!.longitude
-                    geoPoint = GeoPoint(latitude,longitude)
-                }
+
             }
 
             fusedLocationProvider.requestLocationUpdates(
-                LocationRequest.Builder(1000000).apply {
+                LocationRequest.Builder(resultInterval * 1000).apply {
                     setPriority(Priority.PRIORITY_HIGH_ACCURACY)
                 }.build(),
                 locationCallback,
                 Looper.getMainLooper()
             )
+
+            //получение данных о геолокации при успешном их получении
+            fusedLocationProvider.lastLocation.addOnSuccessListener {
+
+                viewModel.setGeoPoint(GeoPoint(it.latitude,it.longitude))
+
+            }
 
         }else{
 
