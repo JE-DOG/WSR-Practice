@@ -44,6 +44,7 @@
                 style="@style/editTextDetail"
                 android:text="@string/check_order_edit_text_detail_adrees"/>
             <AutoCompleteTextView
+                android:id="@+id/address_but"
                 android:inputType="none"
                 android:layout_width="match_parent"
                 style="@style/edit_text_style"
@@ -57,6 +58,7 @@
                 style="@style/editTextDetail"
                 android:text="@string/check_order_edit_text_date_and_time"/>
             <EditText
+                android:id="@+id/date_picker"
                 android:layout_width="match_parent"
                 style="@style/edit_text_style"
 
@@ -71,6 +73,7 @@
                 android:text="@string/check_order_detail_patients"/>
 
             <AutoCompleteTextView
+                android:id="@+id/set_single_patient"
                 android:inputType="none"
                 android:layout_width="match_parent"
                 style="@style/edit_text_style"
@@ -78,12 +81,14 @@
                 android:drawableEnd="@drawable/ic_dropdown"
                 android:paddingEnd="15dp"/>
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcv_patient_analyzes"
+                android:id="@+id/rcv_set_patients_analyze"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"/>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/add_patient_but"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_blue_empty"
@@ -104,6 +109,7 @@
                     android:text="Телефон *"/>
 
                 <EditText
+                    android:id="@+id/input_phone"
                     android:layout_width="match_parent"
                     style="@style/edit_text_style"
                     android:hint="Введите номер телефона"/>
@@ -136,6 +142,8 @@
             </LinearLayout>
 
                 <EditText
+                    android:id="@+id/comments_et"
+
                     android:layout_width="match_parent"
                     style="@style/edit_text_style"
                     android:gravity="start"
@@ -166,6 +174,7 @@
             android:textColor="@color/black"/>
 
         <TextView
+            android:id="@+id/promo_code_but"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Промокод"
@@ -179,6 +188,8 @@
             android:layout_marginTop="30dp">
 
             <TextView
+                android:id="@+id/count_analyze_tv"
+
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -187,6 +198,8 @@
                 android:textColor="@color/black"/>
 
             <TextView
+                android:id="@+id/price_tv"
+
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -198,6 +211,7 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/order_but"
             android:layout_marginTop="12dp"
             android:layout_width="match_parent"
             android:enabled="false"

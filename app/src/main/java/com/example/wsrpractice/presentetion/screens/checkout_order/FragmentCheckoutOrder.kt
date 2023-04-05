@@ -16,6 +16,16 @@ class FragmentCheckoutOrder(): BaseFragmentMvvm<FragmentCheckoutOrderBinding,Che
     override val viewModel: CheckoutOrderViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initButs()
+
+    }
+
+    private fun initButs(){
+        val address = binding.addressBut
+        address.setOnClickListener {
+
+        }
+
 
     }
 
