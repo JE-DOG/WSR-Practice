@@ -15,9 +15,9 @@ import com.example.wsrpractice.domain.use_case.user.catalog.GetAnalyzesCatalogUs
 import com.example.wsrpractice.domain.use_case.user.patient_card.CreatePatientCardUseCase
 import com.example.wsrpractice.domain.use_case.user.patient_card.SetAvatarUseCase
 import com.example.wsrpractice.domain.use_case.user.patient_card.UpdatePatientCardUseCase
-import com.example.wsrpractice.presentetion.screens.analyze.AnalyzesViewModel
-import com.example.wsrpractice.presentetion.screens.basket.BasketViewModel
-import com.example.wsrpractice.presentetion.screens.profile.ProfileViewModel
+import com.example.wsrpractice.presentetion.ui.screens.analyze.AnalyzesViewModel
+import com.example.wsrpractice.presentetion.ui.screens.basket.BasketViewModel
+import com.example.wsrpractice.presentetion.ui.screens.profile.ProfileViewModel
 
 class ViewModelsFactory: ViewModelProvider.Factory {
 

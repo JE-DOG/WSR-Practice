@@ -9,7 +9,7 @@ import com.example.wsrpractice.data.storage.impl.user_password.UserStoragePasswo
 import com.example.wsrpractice.domain.use_case.user.password.SaveUserPasswordUseCase
 import com.example.wsrpractice.domain.use_case.user.sign_in.SendCodeUseCase
 import com.example.wsrpractice.domain.use_case.user.sign_in.SignInUseCase
-import com.example.wsrpractice.presentetion.screens.sign_up.RegistrationViewModel
+import com.example.wsrpractice.presentetion.ui.screens.sign_up.RegistrationViewModel
 
 class RegistrationViewModelFactory(context: Context):ViewModelProvider.Factory{
 
