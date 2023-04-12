@@ -11,5 +11,6 @@
     <color name="button_empty_input">#C9D4FB</color>
     <color name="chip_enable_true">#1A6FEE</color>
     <color name="chip_enable_false">#F5F5F9</color>
+    <color name="onPrimary">#1A6FEE</color>
 
 </resources>

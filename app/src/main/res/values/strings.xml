@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Смартлаб</string>
+    <string name="checkout_order">Оформление заказа</string>
+    <string name="check_order_edit_text_detail_adrees">Адрес *</string>
+    <string name="check_order_edit_text_text_adrees">Введите ваш адрес</string>
+    <string name="check_order_edit_text_date_and_time">Дата и время*</string>
+    <string name="check_order_edit_text_hint_date_and_time">Выберите дату и время</string>
+    <string name="check_order_detail_patients">Кто будет сдавать анализы? *</string>
 </resources>

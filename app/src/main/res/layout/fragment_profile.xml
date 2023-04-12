@@ -24,16 +24,16 @@
         android:textStyle="bold"/>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="149dp"
+        android:layout_height="123dp"
         android:layout_gravity="center_horizontal"
         app:cardCornerRadius="60dp"
         android:layout_marginVertical="7dp">
 
         <ImageView
             android:id="@+id/user_avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:srcCompat="@drawable/ic_default_user_avatar"/>
 
     </androidx.cardview.widget.CardView>
